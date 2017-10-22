@@ -5,7 +5,7 @@ class player(pygame.sprite.Sprite):
 
     def __init__(self, posicion):
 
-        self.sheet = pygame.image.load('images/mobs/takumi.png')
+        self.sheet = pygame.image.load('images/sprites/takumi.png')
 
         self.sheet.set_clip(pygame.Rect(97, 4, 29, 55))
         self.image = self.sheet.subsurface(self.sheet.get_clip())
