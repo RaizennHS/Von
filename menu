@@ -1,0 +1,142 @@
+from pygame.locals import *
+import pygame
+
+pygame.init()
+size = 800, 600
+default_font = pygame.font.Font(None, 28)
+screen = pygame.display.set_mode(size)
+Clock = pygame.time.Clock()
+
+
+def imagen(filename, transparent=False):
+    try:
+        image = pygame.image.load(filename)
+    except pygame.error, message:
+        raise SystemExit, message
+    if transparent:
+        color = image.get_at((0, 0))
+        image.set_colorkey(color, RLEACCEL)
+    return image
+
+
+def draw_text(text, font, surface, x, y, main_color, background_color=None):
+    textobj = font.render(text, True, main_color, background_color)
+    textrect = textobj.get_rect()
+    textrect.centerx = x
+    textrect.centery = y
+    surface.blit(textobj, textrect)
+
+
+def presentar():
+    fondo = pygame.Surface((800, 600))
+    fondoRect = fondo.get_rect()
+    fondoRect.left, fondoRect.top = 0, 0
+    fondo.fill((0, 0, 0))
+    imagen2 = pygame.image.load("Hypersoft.png")
+    imagenRect = imagen2.get_rect()
+    alpha = 0
+    direccion = 1
+    boolean = True
+    while boolean == True:
+        pygame.event.get()
+        screen.blit(fondo, fondoRect)
+        screen.blit(imagen2, imagenRect)
+        alpha += 2 * direccion
+
+        if alpha >= 255:
+            direccion *= -1
+
+        if alpha < 0:
+            print ('Entro')
+            boolean = False
+        imagen2.set_alpha(alpha)
+        pygame.display.update()
+        Clock.tick(60)
+
+
+def presentar2():
+    fondo = pygame.Surface((800, 600))
+    fondoRect = fondo.get_rect()
+    fondoRect.left, fondoRect.top = 0, 0
+    fondo.fill((0, 0, 0))
+    imagen2 = pygame.image.load("Hypersoft.png")
+    imagenRect = imagen2.get_rect()
+    alpha = 0
+    direccion = 1
+    boolean = True
+    while boolean == True:
+        pygame.event.get()
+        screen.blit(fondo, fondoRect)
+        screen.blit(imagen2, imagenRect)
+        alpha += 2 * direccion
+
+        if alpha >= 255:
+            direccion *= -1
+
+        if alpha < 0:
+            print ('Entro')
+            boolean = False
+        imagen2.set_alpha(alpha)
+        pygame.display.update()
+        Clock.tick(60)
+
+
+# ========================Menu======================================
+
+def start_screen(num):
+    pantalla = imagen('Von.png')
+    pantalla2 = imagen('intro1.png')
+    pantalla3 = imagen('intro2.png')
+    pantalla4 = imagen('intro3.png')
+    while True:
+        if num == 0:
+            presentar()
+            num = 1
+            pygame.mixer.music.load("menu\Start.mp3")
+            pygame.mixer.music.play(-1, 0.0)
+
+        if num == 1:
+
+            pantalla = pygame.transform.scale(pantalla, (800, 600))
+            screen.blit(pantalla, (0, 0))
+            pygame.display.update()
+
+        elif num == 2:
+            pantalla = pygame.transform.scale(pantalla2, (800, 600))
+            screen.blit(pantalla, (0, 0))
+            pygame.display.flip()
+
+        elif num == 3:
+            pantalla = pygame.transform.scale(pantalla3, (800, 600))
+            screen.blit(pantalla, (0, 0))
+            pygame.display.flip()
+
+        elif num == 4:
+            pantalla = pygame.transform.scale(pantalla4, (800, 600))
+            screen.blit(pantalla, (0, 0))
+            pygame.display.flip()
+
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    # print('entro')
+                    if num == 4: return False
+                    num += 1
+
+                    # print ('entro2')
+
+                if event.key == pygame.K_ESCAPE:
+                    key = pygame.key.name(event.key)
+                    if key == "escape":
+                        pygame.quit
+                        quit()
+                        return
+
+            if event.type == QUIT:
+                return
+
+
+start_screen(0)
+
+pygame.quit()
