@@ -1,1 +1,1 @@
-# Repositorio para el juego VoN
+# Repositorio para el juego VoN, para agregar una parte del código haganlo en un archivo separado para tener todo mejor organizado, por ejemplo para añadir el movimiento del personaje agregar el código en otro archivo y no en el ya existente "menu"
