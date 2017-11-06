@@ -146,7 +146,12 @@ class player(pygame.sprite.Sprite):
         if posicion == 'down':
             pass
         if posicion == 'corre':
-            self.xvel = 8
+            if self.posicion2 == 'left':
+                self.clip(self.left_states)
+                self.xvel = -7
+            elif self.posicion2 == 'right':
+                self.clip(self.right_states)
+                self.xvel = 7
 
         if not self.onGround:
             self.yvel += 0.3
@@ -168,7 +173,7 @@ class player(pygame.sprite.Sprite):
             self.xvel += 5
         if self.rect.right > 800:
             self.xvel -= 5
-        if self.rect.bottom == 600:
+        if self.rect.bottom >= 458:
             self.yvel = 0
             self.onGround = True
 
